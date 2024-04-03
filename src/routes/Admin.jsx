@@ -4,21 +4,48 @@ import { Link } from "react-router-dom";
 import "./Admin.css";
 
 const Admin = () => {
-    const [post, setPost] =useState()
-    const getPosts = async () => {
-        try {
-            const response = await blogFeatch.get("/posts");
+  const [posts, setPost] = useState([]);
+  const getPosts = async () => {
+    try {
+      const response = await blogFeatch.get("/posts");
 
-            const data = response.data
+      const data = response.data;
 
-            setPost(data)
-        } catch (err) {
-            console.log("error")
-        }
+      setPost(data);
+    } catch (err) {
+      console.log("error");
+    }
+    };
+    
+    const deletePost = async (id) => {
+        await blogFeatch.delete(`/posts/${id}`);
 
+        const filteredPosts = posts.filter(post => post.id !== id);
+        setPost(filteredPosts);
     }
 
-  return <div>Admin</div>;
+  useEffect(() => {
+    getPosts();
+  }, []);
+
+  return (
+    <div className="admin">
+      <h1> Gerenciar Posts</h1>
+      {posts.legnth === 0 ? (
+        <p>Carregando...</p>
+      ) : (
+        posts.map((post) => (
+          <div className="post" key={post.id}>
+            <h2>{post.title}</h2>
+            <div className="action">
+              <Link  className="btn edit-btn">Editar</Link>
+              <button className="btn delete-btn" onClick={()=> deletePost(post.id)}>Excluir</button>
+            </div>
+          </div>
+        ))
+      )}
+    </div>
+  );
 };
 
 export default Admin;
