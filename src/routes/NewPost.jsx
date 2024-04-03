@@ -7,7 +7,6 @@ const NewPost = () => {
   const Navigate = useNavigate();
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
-  const [newPost, setNewPost] = useState();
 
   const createPost = async (e) => {
     e.preventDefault();

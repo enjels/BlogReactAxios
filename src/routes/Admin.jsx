@@ -38,8 +38,15 @@ const Admin = () => {
           <div className="post" key={post.id}>
             <h2>{post.title}</h2>
             <div className="action">
-              <Link  className="btn edit-btn">Editar</Link>
-              <button className="btn delete-btn" onClick={()=> deletePost(post.id)}>Excluir</button>
+              <Link to={`/post/edit/${post.id}`} className="btn edit-btn">
+                Editar
+              </Link>
+              <button
+                className="btn delete-btn"
+                onClick={() => deletePost(post.id)}
+              >
+                Excluir
+              </button>
             </div>
           </div>
         ))
