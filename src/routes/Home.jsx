@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import axios from "axios";
+import blogFeatch from "../axios/config";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
@@ -9,9 +9,7 @@ const Home = () => {
 
   const getPosts = async () => {
     try {
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
+      const response = await blogFeatch.get(`/posts`);
 
       const data = response.data
 
